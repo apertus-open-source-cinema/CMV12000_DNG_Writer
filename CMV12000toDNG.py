@@ -70,5 +70,11 @@ rawIFD.getTag('DefaultCropSize').value[1].num = height
 rawIFD.getTag('DefaultCropOrigin').value[0].num = 0
 rawIFD.getTag('DefaultCropOrigin').value[1].num = 0
 
+# Change Order to GBRG when y-flipped
+rawIFD.getTag('CFAPattern').value[0] = 1
+rawIFD.getTag('CFAPattern').value[1] = 2
+rawIFD.getTag('CFAPattern').value[2] = 0
+rawIFD.getTag('CFAPattern').value[3] = 1
+
 dng.writeDNG(outputDNG)
 
