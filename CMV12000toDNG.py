@@ -40,6 +40,38 @@ profCalTag = dng.ifd.getTag('ProfileCalibrationSignature')
 profCalTag.value = organization
 profCalTag.count = len(profCalTag.value)
 
+# Camera calibration
+matrix1Tag = dng.ifd.getTag('ColorMatrix1')
+matrix1Tag.value[0].num = 3245
+matrix1Tag.value[1].num = -2476
+matrix1Tag.value[2].num = 978
+matrix1Tag.value[3].num = 660
+matrix1Tag.value[4].num = -299
+matrix1Tag.value[5].num = 835
+matrix1Tag.value[6].num = 527
+matrix1Tag.value[7].num = -614
+matrix1Tag.value[8].num = 939
+
+matrix1Tag.value[0].denom = 1000 
+matrix1Tag.value[1].denom = 1000
+matrix1Tag.value[2].denom = 1000 
+matrix1Tag.value[3].denom = 1000 
+matrix1Tag.value[4].denom = 1000 
+matrix1Tag.value[5].denom = 1000 
+matrix1Tag.value[6].denom = 1000 
+matrix1Tag.value[7].denom = 1000 
+matrix1Tag.value[8].denom = 1000 
+
+delTag(dng.ifd,'ColorMatrix2')
+
+calIllum1Tag = dng.ifd.getTag('CalibrationIlluminant1')
+calIllum1Tag.value[0] = 3
+
+delTag(dng.ifd,'CalibrationIlluminant2')
+
+delTag(dng.ifd,'CameraCalibration1')
+delTag(dng.ifd,'CameraCalibration2')
+
 # Replace Image
 width = 4096
 height = 3072

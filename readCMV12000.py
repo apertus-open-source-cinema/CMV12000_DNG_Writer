@@ -4,7 +4,7 @@ import numpy as np
 width = 4096
 height = 3072
 numPixels = width*height
-rawFile = 'colors_400ms.raw16'
+rawFile = 'IT8_incand.raw16'
 rf = open(rawFile, mode='rb')
 
 print "Reading raw data..."
