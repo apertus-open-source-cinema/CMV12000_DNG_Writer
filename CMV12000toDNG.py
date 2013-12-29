@@ -42,25 +42,25 @@ profCalTag.count = len(profCalTag.value)
 
 # Camera calibration
 matrix1Tag = dng.ifd.getTag('ColorMatrix1')
-matrix1Tag.value[0].num = 3245
-matrix1Tag.value[1].num = -2476
-matrix1Tag.value[2].num = 978
-matrix1Tag.value[3].num = 660
-matrix1Tag.value[4].num = -299
-matrix1Tag.value[5].num = 835
-matrix1Tag.value[6].num = 527
-matrix1Tag.value[7].num = -614
-matrix1Tag.value[8].num = 939
+matrix1Tag.value[0].num = 19049 
+matrix1Tag.value[1].num = -7877
+matrix1Tag.value[2].num = -3582
+matrix1Tag.value[3].num = -5724
+matrix1Tag.value[4].num = 10121
+matrix1Tag.value[5].num = 1917
+matrix1Tag.value[6].num = -1267
+matrix1Tag.value[7].num = 210
+matrix1Tag.value[8].num = 5121
 
-matrix1Tag.value[0].denom = 1000 
-matrix1Tag.value[1].denom = 1000
-matrix1Tag.value[2].denom = 1000 
-matrix1Tag.value[3].denom = 1000 
-matrix1Tag.value[4].denom = 1000 
-matrix1Tag.value[5].denom = 1000 
-matrix1Tag.value[6].denom = 1000 
-matrix1Tag.value[7].denom = 1000 
-matrix1Tag.value[8].denom = 1000 
+matrix1Tag.value[0].denom = 10000 
+matrix1Tag.value[1].denom = 10000
+matrix1Tag.value[2].denom = 10000 
+matrix1Tag.value[3].denom = 10000 
+matrix1Tag.value[4].denom = 10000 
+matrix1Tag.value[5].denom = 10000 
+matrix1Tag.value[6].denom = 10000 
+matrix1Tag.value[7].denom = 10000 
+matrix1Tag.value[8].denom = 10000 
 
 delTag(dng.ifd,'ColorMatrix2')
 
@@ -79,6 +79,7 @@ numPixels = width*height
 #rf = open(rawFile, mode='rb')
 rf = rawFile
 rawData = struct.unpack("H"*numPixels,rf.read(2*numPixels))
+regData = struct.unpack("B"*256,rf.read(256))
 
 rawFlatImage = np.zeros(numPixels,dtype=np.uint16)
 rawFlatImage[:] = rawData[:] 
@@ -107,6 +108,14 @@ rawIFD.getTag('CFAPattern').value[0] = 1
 rawIFD.getTag('CFAPattern').value[1] = 2
 rawIFD.getTag('CFAPattern').value[2] = 0
 rawIFD.getTag('CFAPattern').value[3] = 1
+
+# Add private data (registers)
+privTag = TAG()
+privTag.tag = DNG_TAGS_STR_ID['DNGPrivateData']
+privTag.type = 1
+privTag.count = 256
+privTag.value = regData
+dng.ifd.tags[privTag.tag] = privTag
 
 dng.writeDNG(outputDNG)
 
