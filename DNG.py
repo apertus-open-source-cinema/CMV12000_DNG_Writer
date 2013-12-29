@@ -18,8 +18,6 @@ class DNG:
         self.wf = open(self.write_file, mode='wb')
         self.writeHeader()
         self.writeIFD(self.ifd)
-        #Last IFD tag
-        self.wf.write(struct.pack('I',0))
     def readHeader(self):
         self.rf.seek(0)
         self.endian = self.rf.read(2)
@@ -76,6 +74,8 @@ class DNG:
                 #tag.offset = self.wf.tell()
                 tagsToWriteOffset.append(tag)
                 self.wf.write(struct.pack('I',tag.offset))
+        #Last IFD tag
+        self.wf.write(struct.pack('I',0))
         for tag in tagsToWriteOffset:
             tag.writeTAG(self.wf)
         if( hasattr(ifd,'image') ):
