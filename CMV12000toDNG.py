@@ -1,4 +1,4 @@
-import struct, collections
+﻿import struct, collections
 import numpy as np
 import sys
 import shutil
@@ -11,7 +11,7 @@ def addTag(dict, ifd, tagName):
 def delTag(ifd, tagName):
     del ifd.tags[DNG_TAGS_STR_ID[tagName]]
     
-organization = "Apertus"
+organization = "apertus°"
 cameraModel = "Axiom Alpha"
 emptyDNG = 'empty.dng'
 outputDNG = 'img.dng'
